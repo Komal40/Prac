@@ -15,25 +15,26 @@ class user_model():
     def user_getall_model(self):
         self.cur.execute("SELECT * FROM USERS")
         res=self.cur.fetchall()
-        return json.dumps(res)
+        # return json.dumps(res)
+        return {"payload":res}
     
 
     def add_one_model(self, data):
         self.cur.execute(f"INSERT INTO users(name, email, phone) VALUES('{data['name']}', '{data['email']}', '{data['phone']}')")
-        return 'User connected successfully'
+        return {"msg":'User connected successfully'}
     
     def update_model(self, data):
         self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}' WHERE id='{data['id']}' ")
         if self.cur.rowcount>0:
-            return 'Updated successfully'
+            return {"msg":'Updated successfully'}
         else:
-            return 'Nothing to update'
+            return {"msg":'Nothing to update'}
             
 
 
     def delete_model(self, data):
         self.cur.execute(f"DELETE from USERS WHERE id={data} ")
         if self.cur.rowcount>0:
-            return 'Deleted successfully'
+            return {"msg":'Deleted successfully'}
         else:
-            return 'Nothing to delete'
+            return {"msg":'Nothing to delete'}
