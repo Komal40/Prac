@@ -15,3 +15,8 @@ def add_one_controller():
 @app.route('/user/update', methods=['PUT'])
 def update_controller():
     return obj.update_model(request.form)
+
+@app.route('/user/delete/<id>', methods=['DELETE'])
+def delete_controller(id):
+    return obj.delete_model(id)
+

@@ -29,3 +29,11 @@ class user_model():
         else:
             return 'Nothing to update'
             
+
+
+    def delete_model(self, data):
+        self.cur.execute(f"DELETE from USERS WHERE id={data} ")
+        if self.cur.rowcount>0:
+            return 'Deleted successfully'
+        else:
+            return 'Nothing to delete'
