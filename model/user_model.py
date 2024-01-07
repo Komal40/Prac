@@ -21,3 +21,11 @@ class user_model():
     def add_one_model(self, data):
         self.cur.execute(f"INSERT INTO users(name, email, phone) VALUES('{data['name']}', '{data['email']}', '{data['phone']}')")
         return 'User connected successfully'
+    
+    def update_model(self, data):
+        self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}' WHERE id='{data['id']}' ")
+        if self.cur.rowcount>0:
+            return 'Updated successfully'
+        else:
+            return 'Nothing to update'
+            

@@ -12,3 +12,6 @@ def user_getall_controller():
 def add_one_controller():
     return obj.add_one_model(request.form)
 
+@app.route('/user/update', methods=['PUT'])
+def update_controller():
+    return obj.update_model(request.form)
