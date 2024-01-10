@@ -1,5 +1,6 @@
 import mysql.connector
 import json
+from flask import make_response
 
 class user_model():
     def __init__(self):
@@ -16,25 +17,34 @@ class user_model():
         self.cur.execute("SELECT * FROM USERS")
         res=self.cur.fetchall()
         # return json.dumps(res)
-        return {"payload":res}
+        if len(res)>0:
+            return make_response({"payload":res}, 200)
+        else:
+            return make_response({"msg":"No Data Found"}, 204)
+
     
 
     def add_one_model(self, data):
         self.cur.execute(f"INSERT INTO users(name, email, phone) VALUES('{data['name']}', '{data['email']}', '{data['phone']}')")
-        return {"msg":'User connected successfully'}
+        return make_response({"msg":'User connected successfully'}, 201)
+    
     
     def update_model(self, data):
         self.cur.execute(f"UPDATE users SET name='{data['name']}', email='{data['email']}', phone='{data['phone']}', password='{data['password']}' WHERE id='{data['id']}' ")
         if self.cur.rowcount>0:
-            return {"msg":'Updated successfully'}
+            return make_response({"msg":'Updated successfully'}, 201)
         else:
-            return {"msg":'Nothing to update'}
+            return make_response({"msg":'Nothing to update'}, 202)
             
 
 
     def delete_model(self, data):
         self.cur.execute(f"DELETE from USERS WHERE id={data} ")
         if self.cur.rowcount>0:
-            return {"msg":'Deleted successfully'}
+            return make_response({"msg":'Deleted successfully'},200)
         else:
-            return {"msg":'Nothing to delete'}
+            return make_response({"msg":'Nothing to delete'},202)
+        
+
+
+
