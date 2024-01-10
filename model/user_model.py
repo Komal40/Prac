@@ -18,7 +18,9 @@ class user_model():
         res=self.cur.fetchall()
         # return json.dumps(res)
         if len(res)>0:
-            return make_response({"payload":res}, 200)
+            response = make_response({"payload":res}, 200)
+            response.headers['Access-Control-Allow-Origin']='*'
+            return response
         else:
             return make_response({"msg":"No Data Found"}, 204)
 
